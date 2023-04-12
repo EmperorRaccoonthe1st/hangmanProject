@@ -7,7 +7,7 @@ baseWord = ""
 usedLetters = []
 display = {}
 
-def setDisplay():
+def setDisplay(use):
     pass
 
 baseWord = input("Input the word to be guessed: ")
