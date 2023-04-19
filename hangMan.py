@@ -3,12 +3,13 @@ from tkinter import ttk
 #root = Tk()
 
 
-baseWord = ""
-usedLetters = []
-display = []
-letterInput = ""
-gameState = True
 
+
+class game:
+    self.baseWord = ""
+    self.display = []
+    self.letterInput = ""
+    self.gameState = True
 
 def setDisplay(use, letter = ""):
     global baseWord, display
@@ -24,12 +25,38 @@ def setDisplay(use, letter = ""):
         
     
 
+def hangman():
+    display = []
+    points = 0
+    baseWord = input("Input the word to be guessed: ")
+    mistakes = 5
+    usedLetters = []
+    setDisplay("reset")
+    playGame()
+    
+    
+def playGame():
+    print(str(display))     
+    letterInput = str(input("Input a letter that is in the word: ")).upper()
+    #usedLetters.append(letterInput)
+    if letterInput in baseWord:
+        print(letterInput + " was in the word")
+        setDisplay("edit", letterInput)
+        points += 1
+    else:
+        print(letterInput + " was not in the word.")
+        mistakes -= 1
+     
+     
+     
+        
 print("Welcome to Hangman")
-while gameState == True:
-    print("first Loop")
+while gameState == False:
+    print("#####first Loop")
     points = 0
     baseWord = input("Input the word to be guessed: ")
     wordGuessed = 5
+    usedLetters = []
     setDisplay("reset")
     print(wordGuessed)
     while wordGuessed > 0:
@@ -62,7 +89,7 @@ while gameState == True:
         
 
 
-
+hangman()
 
 
 
