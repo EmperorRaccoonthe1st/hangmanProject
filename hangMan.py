@@ -3,14 +3,6 @@ from tkinter import ttk
 #root = Tk()
 
 
-
-
-class game:
-    self.baseWord = ""
-    self.display = []
-    self.letterInput = ""
-    self.gameState = True
-
 def setDisplay(use, letter = ""):
     global baseWord, display
     listWord = list(baseWord)
@@ -22,79 +14,43 @@ def setDisplay(use, letter = ""):
         for x in range(len(display)):
             if str(letter).upper() == str(listWord[x]).upper():
                 display[x] = str(listWord[x])
-        
-    
 
-def hangman():
-    display = []
-    points = 0
-    baseWord = input("Input the word to be guessed: ")
-    mistakes = 5
-    usedLetters = []
-    setDisplay("reset")
-    playGame()
-    
-    
-def playGame():
-    print(str(display))     
-    letterInput = str(input("Input a letter that is in the word: ")).upper()
-    #usedLetters.append(letterInput)
-    if letterInput in baseWord:
-        print(letterInput + " was in the word")
-        setDisplay("edit", letterInput)
-        points += 1
-    else:
-        print(letterInput + " was not in the word.")
-        mistakes -= 1
-     
-     
-     
-        
-print("Welcome to Hangman")
-while gameState == False:
-    print("#####first Loop")
-    points = 0
-    baseWord = input("Input the word to be guessed: ")
-    wordGuessed = 5
-    usedLetters = []
-    setDisplay("reset")
-    print(wordGuessed)
-    while wordGuessed > 0:
-        print(str(display))
-        letterInput = str(input("Input a letter that is in the word: "))
-        if letterInput.upper() not in usedLetters:
-            #print("pass one")
-            usedLetters.append(str(letterInput).upper())
-            if letterInput.upper() in baseWord.upper():
-                print("Pasted")
-                print(letterInput + " was in the word")
-                setDisplay("edit", letterInput)
+
+def playRound():
+    global points, mistakes
+    print("#")
+    print("#")
+    if not points == len(list(baseWord)):
+        print(display)
+        letter = str(input("Guesse a letter in the word: "))
+        #print(usedLetters)
+        if not letter in usedLetters:
+            usedLetters.append(letter)
+            #print(letter, " is not in ", usedLetters)
+            if letter in baseWord:
                 points += 1
+                setDisplay("edit", letter)
+                print(letter, " was in the word!")
+                #print(display)
                 if points == len(list(baseWord)):
-                    print("You Won!") 
-                    prompt = str(input("What do you want to do? Play Again or Quit: ")).upper()
-                    if prompt == "PLAY AGAIN":
-                        print("Lets play again!")
-                        break                       
-                    elif prompt == "QUIT":
-                        gameState = False
-                        break               
+                    print("You Won!!!!")
             else:
-                print(letterInput + " was not in the word")
-                wordGuessed -= 1
-                print("You have " + str(wordGuessed) + " many guesses left.")
-    else:
-        print("You ran out of guesses! Better luck next time")
-        break
+                mistakes -= 1
+                print(letter, " is not in the word.")
+        else:
+            print("You already used ", letter)
+
         
 
-
-hangman()
-
-
-
-
-
+print("Welcome to Hangman!")
+display = []
+mistakes = 5
+points = 0
+usedLetters = []
+baseWord = str(input("Put a word to be guessed: "))
+setDisplay("reset")
+while mistakes > 0 and not points == len(list(baseWord)):
+    playRound()
 
 
 
