@@ -4,12 +4,16 @@ from tkinter import ttk
 
 
 def setDisplay(use, letter = ""):
-    global baseWord, display
+    global baseWord, display, points
     listWord = list(baseWord)
     if use == "reset":
         display = []
-        for i in baseWord:
-            display.append("_")
+        for i in range(len(baseWord)):
+            if baseWord[i] != " ":
+                display.append("_")
+            else:
+                display.append(" ")
+                points += 1
     elif use == "edit":
         for x in range(len(display)):
             if str(letter).upper() == str(listWord[x]).upper():
@@ -38,7 +42,7 @@ def setLetter(use):
 
 def playRound():
     global points, mistakes, letter
-
+    setDisplay("edit", " ")
     if not points == len(list(baseWord)):
         print(display)
         print("You alread used these letters: ", usedLetters)
@@ -53,6 +57,7 @@ def playRound():
                 setDisplay("edit", letter)
                 print(letter, " was in the word!")
                 #print(display)
+                print(points)
                 if points == len(list(baseWord)):
                     print("The word was: ", display)
                     print("You Won!!!!")
