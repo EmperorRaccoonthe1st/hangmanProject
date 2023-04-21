@@ -18,8 +18,7 @@ def setDisplay(use, letter = ""):
 
 def playRound():
     global points, mistakes
-    print("#")
-    print("#")
+
     if not points == len(list(baseWord)):
         print(display)
         letter = str(input("Guesse a letter in the word: "))
@@ -49,6 +48,8 @@ points = 0
 usedLetters = []
 baseWord = str(input("Put a word to be guessed: "))
 setDisplay("reset")
+for x in range(25):
+        print("#")
 while mistakes > 0 and not points == len(list(baseWord)):
     playRound()
 
