@@ -14,20 +14,53 @@ def setDisplay(use, letter = ""):
         for x in range(len(display)):
             if str(letter).upper() == str(listWord[x]).upper():
                 display[x] = str(listWord[x])
+        
+    
 
-
-def playRound():
-    global points, mistakes
-    print("#")
-    print("#")
-    if not points == len(list(baseWord)):
-        print(display)
-        letter = str(input("Guesse a letter in the word: "))
-        #print(usedLetters)
-        if not letter in usedLetters:
-            usedLetters.append(letter)
-            #print(letter, " is not in ", usedLetters)
-            if letter in baseWord:
+def hangman():
+    display = []
+    points = 0
+    baseWord = input("Input the word to be guessed: ")
+    mistakes = 5
+    usedLetters = []
+    setDisplay("reset")
+    playGame()
+    
+    
+def playGame():
+    print(str(display))     
+    letterInput = str(input("Input a letter that is in the word: ")).upper()
+    #usedLetters.append(letterInput)
+    if letterInput in baseWord:
+        print(letterInput + " was in the word")
+        setDisplay("edit", letterInput)
+        points += 1
+    else:
+        print(letterInput + " was not in the word.")
+        mistakes -= 1
+     
+     
+     
+        
+print("Welcome to Hangman")
+while gameState == False:
+    print("#####first Loop")
+    points = 0
+    baseWord = input("Input the word to be guessed: ")
+    wordGuessed = 5
+    usedLetters = []
+    setDisplay("reset")
+    print(wordGuessed)
+    while wordGuessed > 0:
+        print(str(display))
+        letterInput = str(input("Input a letter that is in the word: "))
+        if letterInput.upper() not in usedLetters:
+            #print("pass one")
+            usedLetters.append(str(letterInput).upper())
+            if letterInput.upper() in baseWord.upper():
+                print("Pasted")
+                print(letterInput + " was in the word")
+                setDisplay("edit", letterInput)
                 points += 1
                 setDisplay("edit", letter)
                 print(letter, " was in the word!")
@@ -48,9 +81,9 @@ mistakes = 5
 points = 0
 usedLetters = []
 baseWord = str(input("Put a word to be guessed: "))
-for x in range(20):
-    print("#######")
 setDisplay("reset")
+for x in range(25):
+        print("#")
 while mistakes > 0 and not points == len(list(baseWord)):
     playRound()
 
