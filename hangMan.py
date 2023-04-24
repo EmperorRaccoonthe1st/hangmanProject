@@ -39,6 +39,19 @@ def setLetter(use):
             letter = letter.upper()
         
 
+def setPoints(use):
+    global baseWord, points, pointMax
+    if use == "set":
+        dusedLetters = []
+        dBaseWord = list(baseWord)
+        for x in range(len(dBaseWord)):
+            if not dBaseWord[x] in dusedLetters:
+                pointMax += 1
+            dusedLetters.append(dBaseWord[x])
+    elif use == "reset":
+        pointMax = 0
+
+
 
 def playRound():
     global points, mistakes, letter
@@ -57,8 +70,8 @@ def playRound():
                 setDisplay("edit", letter)
                 print(letter, " was in the word!")
                 #print(display)
-                print(points)
-                if points == len(list(baseWord)):
+                #print(points)
+                if points == pointMax:
                     print("The word was: ", display)
                     print("You Won!!!!")
             else:
@@ -74,12 +87,14 @@ display = []
 mistakes = 5
 points = 0
 usedLetters = []
+pointMax = 0
 #baseWord = str(input("Put a word to be guessed: "))
 setBaseWord("set")
 setDisplay("reset")
 for x in range(25):
         print("#")
-while mistakes > 0 and not points == len(list(baseWord)):
+setPoints("set")
+while mistakes > 0 and points != pointMax:
     playRound()
     print("#")
     print("#")
