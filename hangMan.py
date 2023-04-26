@@ -32,11 +32,33 @@ def setBaseWord(use):
 
 
 def setLetter(use):
-    global letter
+    global letter, baseWord, points, pointMax, mistakes, usedLetters
     if use == "set":
         letter = str(input("Guesse a letter in the word: "))
+        if not letter in usedLetters:
+            usedLetters.append(letter)
         if isinstance(letter, str) == True:
             letter = letter.upper()
+    if use == "check":
+        strBaseWord = ""
+        for x in range(len(baseWord)):
+            strBaseWord = strBaseWord + str(baseWord[x])
+        print(strBaseWord)
+        if letter.upper() in baseWord:
+            points += 1
+            setDisplay("edit", letter)
+            print(letter, " was in the word!")
+            if points == pointMax:
+                    print("The word was: ", display)
+                    print("You Won!!!!")
+        elif letter.upper() in strBaseWord:
+            print("The word was: ", display)
+            print("You Won!!!!")
+            points = pointMax
+        else:
+            mistakes -= 1
+            print(letter, " is not in the word.")
+    
         
 
 def setPoints(use):
@@ -52,7 +74,6 @@ def setPoints(use):
         pointMax = 0
 
 
-
 def playRound():
     global points, mistakes, letter
     setDisplay("edit", " ")
@@ -60,23 +81,9 @@ def playRound():
         print(display)
         print("You alread used these letters: ", usedLetters)
         setLetter("set")
-        
         #print(usedLetters)
         if not letter.upper() in usedLetters:
-            usedLetters.append(letter.upper())
-            #print(letter, " is not in ", usedLetters)
-            if letter.upper() in baseWord:
-                points += 1
-                setDisplay("edit", letter)
-                print(letter, " was in the word!")
-                #print(display)
-                #print(points)
-                if points == pointMax:
-                    print("The word was: ", display)
-                    print("You Won!!!!")
-            else:
-                mistakes -= 1
-                print(letter, " is not in the word.")
+            setLetter("check")
         else:
             print("You already used ", letter)
 
