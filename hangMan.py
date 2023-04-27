@@ -34,30 +34,41 @@ def setBaseWord(use):
 def setLetter(use):
     global letter, baseWord, points, pointMax, mistakes, usedLetters
     if use == "set":
-        letter = str(input("Guesse a letter in the word: "))
-        if not letter in usedLetters:
-            usedLetters.append(letter)
-        if isinstance(letter, str) == True:
-            letter = letter.upper()
+        letter = str(input("Guess a letter in the word: "))
+        listLetter = list(letter)
+        letter = ""
+        for x in range(len(listLetter)):
+            if isinstance(listLetter[x], str) == True:
+                listLetter[x] = listLetter[x].upper()
+            letter = letter + listLetter[x]
+        #print("this is letter but all caps:", letter)
     if use == "check":
         strBaseWord = ""
         for x in range(len(baseWord)):
             strBaseWord = strBaseWord + str(baseWord[x])
-        print(strBaseWord)
-        if letter.upper() in baseWord:
+        #print(strBaseWord)
+        if letter in baseWord:
             points += 1
             setDisplay("edit", letter)
             print(letter, " was in the word!")
+            #print("this is points after a sucsessful check:", points)
             if points == pointMax:
-                    print("The word was: ", display)
+                    print("The word was: ", strBaseWord)
                     print("You Won!!!!")
-        elif letter.upper() in strBaseWord:
-            print("The word was: ", display)
+        elif letter == strBaseWord:
+            print("The word was:", strBaseWord)
             print("You Won!!!!")
             points = pointMax
+        elif len(list(baseWord))> len(list(letter)) > 1:
+            print("You can only guess one letter at a time or the whole word")
+            print("Try again")
         else:
             mistakes -= 1
             print(letter, " is not in the word.")
+            print("You have", mistakes, "try's left.")
+            if mistakes == 0:
+                print("YOU LOSE")
+                print("You ran out of guesses 😥")
     
         
 
@@ -75,14 +86,18 @@ def setPoints(use):
 
 
 def playRound():
-    global points, mistakes, letter
+    global points, mistakes, letter, usedLetters
     setDisplay("edit", " ")
     if not points == len(list(baseWord)):
         print(display)
         print("You alread used these letters: ", usedLetters)
         setLetter("set")
         #print(usedLetters)
-        if not letter.upper() in usedLetters:
+        #print("this is letter before it is checked if it is in usedletteres: ", letter, "and this is used letters: ", usedLetters)
+        if letter not in usedLetters:
+            usedLetters.append(letter)
+            #print(letter, " letter passed the check if it has been in used letters")
+            #print("this is used letters:", usedLetters)
             setLetter("check")
         else:
             print("You already used ", letter)
@@ -105,9 +120,6 @@ while mistakes > 0 and points != pointMax:
     playRound()
     print("#")
     print("#")
-
-
-
 
 
 
