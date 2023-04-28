@@ -13,7 +13,6 @@ def setDisplay(use, letter = ""):
                 display.append("_")
             else:
                 display.append(" ")
-                points += 1
     elif use == "edit":
         for x in range(len(display)):
             if str(letter).upper() == str(listWord[x]).upper():
@@ -53,9 +52,11 @@ def setLetter(use):
             print(letter, " was in the word!")
             #print("this is points after a sucsessful check:", points)
             if points == pointMax:
+                    print(display)
                     print("The word was: ", strBaseWord)
                     print("You Won!!!!")
         elif letter == strBaseWord:
+            print(display)
             print("The word was:", strBaseWord)
             print("You Won!!!!")
             points = pointMax
@@ -75,7 +76,7 @@ def setLetter(use):
 def setPoints(use):
     global baseWord, points, pointMax
     if use == "set":
-        dusedLetters = []
+        dusedLetters = [" "]
         dBaseWord = list(baseWord)
         for x in range(len(dBaseWord)):
             if not dBaseWord[x] in dusedLetters:
@@ -90,7 +91,8 @@ def playRound():
     setDisplay("edit", " ")
     if not points == len(list(baseWord)):
         print(display)
-        print("You alread used these letters: ", usedLetters)
+        if not len(usedLetters) < 3:
+            print("You alread used these letters:", usedLetters[2:])        
         setLetter("set")
         #print(usedLetters)
         #print("this is letter before it is checked if it is in usedletteres: ", letter, "and this is used letters: ", usedLetters)
@@ -100,7 +102,12 @@ def playRound():
             #print("this is used letters:", usedLetters)
             setLetter("check")
         else:
-            print("You already used ", letter)
+            if letter == "":
+                print("You need to input a letter.")
+            elif letter == " ":
+                print("You cannot input SPACE.")
+            else:
+                print("You already used", letter)
 
         
 
@@ -108,7 +115,7 @@ print("Welcome to Hangman!")
 display = []
 mistakes = 5
 points = 0
-usedLetters = []
+usedLetters = [" ", ""]
 pointMax = 0
 #baseWord = str(input("Put a word to be guessed: "))
 setBaseWord("set")
