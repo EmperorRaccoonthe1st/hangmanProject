@@ -60,9 +60,15 @@ def setLetter(use):
             print("The word was:", strBaseWord)
             print("You Won!!!!")
             points = pointMax
-        elif len(list(baseWord))> len(list(letter)) > 1:
+        elif len(list(baseWord)) != len(list(letter)) > 1:
             print("You can only guess one letter at a time or the whole word")
             print("Try again")
+        elif len(list(baseWord)) == len(list(letter)) > 1:
+            print("You guessed the wrong word")
+            print("You have", mistakes, "try's left.")
+            if mistakes == 0:
+                print("YOU LOSE")
+                print("You ran out of guesses 😥")
         else:
             mistakes -= 1
             print(letter, " is not in the word.")
