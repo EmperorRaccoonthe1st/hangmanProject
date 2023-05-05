@@ -51,6 +51,7 @@ def setLetter(use):
             setDisplay("edit", letter)
             print(letter, " was in the word!")
             #print("this is points after a sucsessful check:", points)
+            print("this is points:", points)
             if points == pointMax:
                     print(display)
                     print("The word was: ", strBaseWord)
@@ -81,6 +82,7 @@ def setLetter(use):
 
 def setPoints(use):
     global baseWord, points, pointMax
+    print("set pooints used")
     if use == "set":
         dusedLetters = [" "]
         dBaseWord = list(baseWord)
@@ -93,7 +95,7 @@ def setPoints(use):
 
 
 def playRound():
-    global points, mistakes, letter, usedLetters
+    global points, mistakes, letter, usedLetters, pointMax, gameState
     setDisplay("edit", " ")
     if not points == len(list(baseWord)):
         print(display)
@@ -114,26 +116,61 @@ def playRound():
                 print("You cannot input SPACE.")
             else:
                 print("You already used", letter)
+    else: 
+        print("You Wonnn!!!!!")
+        gameState = False
+        points = pointMax
 
-        
 
-print("Welcome to Hangman!")
+def playGame():
+    global gameState, baseWord, display, usedLetters, mistakes, pointMax
+    print("Welcome to Hangman!")
+    display = []
+    mistakes = 5
+    points = 0
+    usedLetters = [" ", ""]
+    pointMax = 0
+    baseWord = ""
+    #baseWord = str(input("Put a word to be guessed: "))
+    setBaseWord("set")
+    setDisplay("reset")
+    for x in range(25):
+            print("#")
+    setPoints("set")
+    print(pointMax)
+    print(mistakes)
+    while mistakes > 0 and points != pointMax:
+        playRound()
+        print("#")
+        print("#")
+    else:
+        gameState = False
+
+
+def hangman():
+    global gameState, yesList
+    while gameState == True:
+        playGame()
+    else:
+        if str(input("Do you want to play again?: ")).lower() in yesList:
+            gameState = True
+            hangman()
+        else:
+            gameState = False    
+
+
+gameState = True
+yesList = ["yes", "yep", "yeah", "ya", "yup", "uh-huh", "okay", "alright", "certainly", "indeed", "affirmative", "roger that", "exactly", "absolutely", "sure thing", "you bet", "no problem", "right", "ok", "sure", "fine", "if you say so", "i'd love to", "bet", "y"]
 display = []
 mistakes = 5
 points = 0
 usedLetters = [" ", ""]
 pointMax = 0
-#baseWord = str(input("Put a word to be guessed: "))
-setBaseWord("set")
-setDisplay("reset")
-for x in range(25):
-        print("#")
-setPoints("set")
-while mistakes > 0 and points != pointMax:
-    playRound()
-    print("#")
-    print("#")
+baseWord = ""
 
+
+
+hangman()
 
 
 
