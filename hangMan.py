@@ -31,7 +31,7 @@ def setBaseWord(use):
 
 
 def setLetter(use):
-    global letter, baseWord, points, pointMax, mistakes, usedLetters
+    global letter, baseWord, points, pointMax, mistakes, usedLetters, gameState
     if use == "set":
         letter = str(input("Guess a letter in the word: "))
         listLetter = list(letter)
@@ -51,25 +51,27 @@ def setLetter(use):
             setDisplay("edit", letter)
             print(letter, " was in the word!")
             #print("this is points after a sucsessful check:", points)
-            print("this is points:", points)
+            #print("this is points:", points)
             if points == pointMax:
                     print(display)
                     print("The word was: ", strBaseWord)
                     print("You Won!!!!")
+                    gameState = False
         elif letter == strBaseWord:
-            print(display)
             print("The word was:", strBaseWord)
             print("You Won!!!!")
+            gameState = False
             points = pointMax
         elif len(list(baseWord)) != len(list(letter)) > 1:
             print("You can only guess one letter at a time or the whole word")
             print("Try again")
         elif len(list(baseWord)) == len(list(letter)) > 1:
             print("You guessed the wrong word")
-            print("You have", mistakes, "try's left.")
+            print("You have", mistakes, "mistakes left.")
             if mistakes == 0:
                 print("YOU LOSE")
                 print("You ran out of guesses 😥")
+                gameState = False
         else:
             mistakes -= 1
             print(letter, " is not in the word.")
@@ -77,12 +79,13 @@ def setLetter(use):
             if mistakes == 0:
                 print("YOU LOSE")
                 print("You ran out of guesses 😥")
+                gameState = False
     
         
 
 def setPoints(use):
     global baseWord, points, pointMax
-    print("set pooints used")
+    #print("set pooints used")
     if use == "set":
         dusedLetters = [" "]
         dBaseWord = list(baseWord)
@@ -123,10 +126,10 @@ def playRound():
 
 
 def playGame():
-    global gameState, baseWord, display, usedLetters, mistakes, pointMax
+    global gameState, baseWord, display, usedLetters, mistakes, pointMax, points
     print("Welcome to Hangman!")
     display = []
-    mistakes = 5
+    mistakes = int(input("How many mistakes can your oponent make: "))
     points = 0
     usedLetters = [" ", ""]
     pointMax = 0
@@ -137,26 +140,31 @@ def playGame():
     for x in range(25):
             print("#")
     setPoints("set")
-    print(pointMax)
-    print(mistakes)
-    while mistakes > 0 and points != pointMax:
+    #print(pointMax)
+    #print(mistakes)
+    while gameState == True:
         playRound()
+        #print(gameState)
         print("#")
         print("#")
     else:
-        gameState = False
+        return False
 
 
 def hangman():
     global gameState, yesList
-    while gameState == True:
+    while playGame() == True:
         playGame()
+        #print("first loop")
     else:
+        #print("else on first loop")
         if str(input("Do you want to play again?: ")).lower() in yesList:
             gameState = True
+            print("#")
+            print("#")
             hangman()
         else:
-            gameState = False    
+            print("Alright, thank you for playing!")    
 
 
 gameState = True
