@@ -129,7 +129,17 @@ def playGame():
     global gameState, baseWord, display, usedLetters, mistakes, pointMax, points
     print("Welcome to Hangman!")
     display = []
-    mistakes = int(input("How many mistakes can your oponent make: "))
+    mistakes = 0
+    while True:
+        try:
+            mistakes = int(input("How many mistakes can your oponent make: "))
+            print("#")
+            print("#")
+            break
+        except:
+            print("You must put an integer, try again.")
+            print("#")
+            print("#")
     points = 0
     usedLetters = [" ", ""]
     pointMax = 0
