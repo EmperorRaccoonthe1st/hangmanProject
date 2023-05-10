@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter import ttk
-#root = Tk()
+root = Tk()
 
+
+# functions
 
 def setDisplay(use, letter = ""):
     global baseWord, display, points
@@ -175,7 +177,9 @@ def hangman():
             hangman()
         else:
             print("Alright, thank you for playing!")    
-
+            
+            
+# varibles
 
 gameState = True
 yesList = ["yes", "yep", "yeah", "ya", "yup", "uh-huh", "okay", "alright", "certainly", "indeed", "affirmative", "roger that", "exactly", "absolutely", "sure thing", "you bet", "no problem", "right", "ok", "sure", "fine", "if you say so", "i'd love to", "bet", "y"]
@@ -187,27 +191,36 @@ pointMax = 0
 baseWord = ""
 
 
-
-hangman()
-
-
+# mainLoop for interface game
+# hangman()
 
 
 
 
 
+# display
+
+# root
+root.title("Hangman")
+root.geometry("500x500")
+root.minsize(500, 500)
+root.maxsize(500, 500)
+
+# mainframe
+mainFrame = ttk.Frame(root)
+mainFrame.grid(column=1, row=1)
+
+# children frames
+wordDisplayFrameStyle = ttk.Style()
+wordDisplayFrameStyle.configure("display.TFrame", background="Red")
+wordDisplayFrame = ttk.Frame(root, padding="100p, 250p", relief="sunken", style="display.TFrame")
+wordDisplayFrame.grid(column=0, row=0)
+
+ttk.Label(mainFrame, text="test").grid(column=0, row=0)
+ttk.Label(wordDisplayFrame, text="test").grid(column=0, row=0)
 
 
 
 
 
-
-
-
-
-
-
-
-
-#mainFrame = ttk.Frame(root, padding="3i, 3i")
-#root.mainloop()
+root.mainloop()
