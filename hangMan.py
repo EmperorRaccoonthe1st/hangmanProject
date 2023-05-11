@@ -207,17 +207,23 @@ root.minsize(500, 500)
 root.maxsize(500, 500)
 
 # mainframe
-mainFrame = ttk.Frame(root)
+mainFrame = ttk.Frame(root, padding="10p")
 mainFrame.grid(column=1, row=1)
+ttk.Label(mainFrame, text="test").grid(column=0, row=0)
+
 
 # children frames
 wordDisplayFrameStyle = ttk.Style()
 wordDisplayFrameStyle.configure("display.TFrame", background="Red")
-wordDisplayFrame = ttk.Frame(root, padding="100p, 250p", relief="sunken", style="display.TFrame")
+wordDisplayFrame = ttk.Frame(mainFrame, padding="50p, 50p", relief="sunken", style="display.TFrame")
 wordDisplayFrame.grid(column=0, row=0)
+ttk.Label(wordDisplayFrame, text="word display").grid(column=0, row=0)
 
-ttk.Label(mainFrame, text="test").grid(column=0, row=0)
-ttk.Label(wordDisplayFrame, text="test").grid(column=0, row=0)
+keyBoardFrameStyle = ttk.Style()
+keyBoardFrameStyle.configure("keyBoard.TFrame", background="Pink", sticky="S")
+keyBoardFrame = ttk.Frame(mainFrame, padding="160p, 50p", style="keyBoard.TFrame", relief="raised")
+keyBoardFrame.grid(column=1, row=2)
+ttk.Label(keyBoardFrame, text="KeyBoard").grid(column=0, row=0)
 
 
 
