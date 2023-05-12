@@ -202,30 +202,43 @@ baseWord = ""
 
 # root
 root.title("Hangman")
-root.geometry("500x500")
-root.minsize(500, 500)
-root.maxsize(500, 500)
+root.geometry("475x475")
+root.minsize(475, 475)
+root.maxsize(475, 475)
 
 # mainframe
-mainFrame = ttk.Frame(root, padding="10p")
-mainFrame.grid(column=1, row=1)
-ttk.Label(mainFrame, text="test").grid(column=0, row=0)
+mainFrameStyle = ttk.Style()
+mainFrameStyle.configure("mainFrame.TFrame", background="Light Green")
+mainFrame = ttk.Frame(root, style="mainFrame.TFrame")
+mainFrame.grid(column=0, row=0, sticky="nsew")
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+ttk.Label(mainFrame, text="Main Frame").grid(column=3, row=3, sticky="s")
 
 
 # children frames
+
+# wordDisplayFrame
 wordDisplayFrameStyle = ttk.Style()
 wordDisplayFrameStyle.configure("display.TFrame", background="Red")
-wordDisplayFrame = ttk.Frame(mainFrame, padding="50p, 50p", relief="sunken", style="display.TFrame")
-wordDisplayFrame.grid(column=0, row=0)
+wordDisplayFrame = ttk.Frame(mainFrame, padding="50p, 50p, 50p, 50p", relief="sunken", style="display.TFrame")
+wordDisplayFrame.grid(column=0, row=0, sticky="wen")
 ttk.Label(wordDisplayFrame, text="word display").grid(column=0, row=0)
 
+# keyBoardFrame
 keyBoardFrameStyle = ttk.Style()
 keyBoardFrameStyle.configure("keyBoard.TFrame", background="Pink", sticky="S")
 keyBoardFrame = ttk.Frame(mainFrame, padding="160p, 50p", style="keyBoard.TFrame", relief="raised")
-keyBoardFrame.grid(column=1, row=2)
+keyBoardFrame.grid(column=0, row=1, sticky="sew")
+mainFrame.rowconfigure(1, weight=1)
 ttk.Label(keyBoardFrame, text="KeyBoard").grid(column=0, row=0)
 
-
+# hangmanDisplayFrame
+hangmanDisplayFrameStyle = ttk.Style()
+hangmanDisplayFrameStyle.configure("hangmanDisplayFrame.TFrame", background="Blue")
+hangmanDisplayFrame = ttk.Frame(mainFrame, padding="50p, 50p, 50p, 50p", relief="ridge", style="hangmanDisplayFrame.TFrame")
+hangmanDisplayFrame.grid(column=0, row=1, sticky="ew")
+ttk.Label(hangmanDisplayFrame, text="Hangman Display Frame").grid(column=0, row=0)
 
 
 
